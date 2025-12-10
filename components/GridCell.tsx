@@ -7,6 +7,7 @@ interface GridCellProps {
   hasBee: boolean;
   beeDirection: Direction;
   isOdd: boolean;
+  startText?: string;
 }
 
 // --- SVG COMPONENTS ---
@@ -90,17 +91,17 @@ const FlowerSVG = () => (
   </svg>
 );
 
-const StartMatSVG = () => (
+const StartMatSVG = ({ text }: { text: string }) => (
     <svg viewBox="0 0 100 100" className="w-full h-full opacity-60">
         <rect x="10" y="10" width="80" height="80" rx="10" fill="#8D6E63" stroke="#5D4037" strokeWidth="2" />
         <rect x="15" y="15" width="70" height="70" rx="5" fill="none" stroke="#D7CCC8" strokeWidth="2" strokeDasharray="5,5" />
-        <text x="50" y="55" textAnchor="middle" fontSize="14" fill="#EFEBE9" fontFamily="sans-serif" fontWeight="bold">INICIO</text>
+        <text x="50" y="55" textAnchor="middle" fontSize="14" fill="#EFEBE9" fontFamily="sans-serif" fontWeight="bold">{text}</text>
     </svg>
 );
 
 // --- MAIN COMPONENT ---
 
-const GridCell: React.FC<GridCellProps> = ({ type, hasBee, beeDirection, isOdd }) => {
+const GridCell: React.FC<GridCellProps> = ({ type, hasBee, beeDirection, isOdd, startText }) => {
   // Stronger grid lines for better visibility
   const baseClasses = `w-full h-full relative flex items-center justify-center border-slate-300 border-2`;
   
@@ -115,7 +116,7 @@ const GridCell: React.FC<GridCellProps> = ({ type, hasBee, beeDirection, isOdd }
       {/* Start Mat */}
       {type === 'start' && !hasBee && (
          <div className="w-[80%] h-[80%]">
-             <StartMatSVG />
+             <StartMatSVG text={startText || "START"} />
          </div>
       )}
 

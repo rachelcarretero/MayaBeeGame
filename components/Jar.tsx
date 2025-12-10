@@ -3,9 +3,10 @@ import React from 'react';
 interface JarProps {
   collected: number;
   total: number;
+  label: string;
 }
 
-const Jar: React.FC<JarProps> = ({ collected, total }) => {
+const Jar: React.FC<JarProps> = ({ collected, total, label }) => {
   // Calculate fill percentage (clamp between 5% and 100% for visuals)
   const percentage = total === 0 ? 0 : Math.max(5, (collected / total) * 100);
   
@@ -39,7 +40,7 @@ const Jar: React.FC<JarProps> = ({ collected, total }) => {
 
       {/* Score Text */}
       <div className="mt-2 bg-white/80 px-4 py-1 rounded-full font-black text-slate-700 border border-slate-200 shadow-sm">
-        {collected} / {total} Gotas
+        {collected} / {total} {label}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Direction, CellType } from './types';
+import { Direction, CellType, Language } from './types';
 
 export const GRID_SIZE = 5;
 
@@ -43,4 +43,35 @@ export const createInitialGrid = (): { grid: CellType[][], totalHoney: number, s
     totalHoney: honeyPositions.length,
     startPos: { x: startX, y: startY }
   };
+};
+
+export const TRANSLATIONS: Record<Language, Record<string, string>> = {
+  es: {
+    title: "Aventura",
+    subtitle: "de Maya 🐝",
+    instruction: "¡Lleva la miel a la flor!",
+    drops: "Gotas",
+    wall: "¡Auch! Una pared 🧱",
+    needHoney: "¡Falta miel!",
+    wonTitle: "¡Lo conseguiste!",
+    wonDesc: "Maya está muy contenta con toda su miel.",
+    playAgain: "¡Jugar Otra Vez!",
+    painting: "Pintando el aula...",
+    mobileTitle: "La Aventura de Maya",
+    start: "INICIO"
+  },
+  en: {
+    title: "Maya's",
+    subtitle: "Adventure 🐝",
+    instruction: "Take the honey to the flower!",
+    drops: "Drops",
+    wall: "Ouch! A wall 🧱",
+    needHoney: "Need more honey!",
+    wonTitle: "You did it!",
+    wonDesc: "Maya is very happy with all her honey.",
+    playAgain: "Play Again!",
+    painting: "Painting the room...",
+    mobileTitle: "Maya's Adventure",
+    start: "START"
+  }
 };
