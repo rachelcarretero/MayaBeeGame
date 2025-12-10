@@ -7,16 +7,17 @@ import Jar from './components/Jar';
 import { generateClassroomMap } from './services/geminiService';
 
 const App: React.FC = () => {
-  // Initialize state using the helper function
-  const initialSetup = createInitialGrid();
-  
-  const [gameState, setGameState] = useState<GameState>({
-    bee: { ...initialSetup.startPos, direction: 'N' },
-    grid: initialSetup.grid,
-    honeyCollected: 0,
-    honeyTotal: initialSetup.totalHoney,
-    status: 'playing',
-    backgroundUrl: undefined
+  // Use lazy initialization for state so createInitialGrid (random) runs only once on mount
+  const [gameState, setGameState] = useState<GameState>(() => {
+    const initialSetup = createInitialGrid();
+    return {
+      bee: { ...initialSetup.startPos, direction: 'N' },
+      grid: initialSetup.grid,
+      honeyCollected: 0,
+      honeyTotal: initialSetup.totalHoney,
+      status: 'playing',
+      backgroundUrl: undefined
+    };
   });
 
   const [language, setLanguage] = useState<Language>('es');
@@ -41,7 +42,8 @@ const App: React.FC = () => {
   };
 
   const resetGame = () => {
-    const setup = createInitialGrid();
+    // Generates a new random grid
+    const setup = createInitialGrid(); 
     setGameState(prev => ({
       bee: { ...setup.startPos, direction: 'N' },
       grid: setup.grid,

@@ -15,32 +15,35 @@ export const DIRECTION_ROTATION: Record<Direction, number> = {
 export const createInitialGrid = (): { grid: CellType[][], totalHoney: number, startPos: {x: number, y: number} } => {
   const grid: CellType[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill('empty'));
   
-  // Configuration similar to your request
-  // (0,0 is Top-Left)
-  
-  // Start Position (Bottom-Left usually, e.g., Door)
+  // Start Position (Bottom-Left)
   const startX = 0;
   const startY = 4;
-  grid[startY][startX] = 'start'; // Mark start visually if needed
+  grid[startY][startX] = 'start'; 
 
-  // Honey Drops (Fixed positions for demo)
-  const honeyPositions = [
-    { x: 2, y: 2 },
-    { x: 3, y: 1 },
-    { x: 1, y: 3 },
-    { x: 4, y: 3 }
-  ];
+  // Flower (Goal) - Top Right
+  const flowerX = 4;
+  const flowerY = 0;
+  grid[flowerY][flowerX] = 'flower';
 
-  honeyPositions.forEach(pos => {
-    grid[pos.y][pos.x] = 'honey';
-  });
+  // Random Honey Drops
+  // We place 4 drops randomly in empty cells (avoiding Start and Flower)
+  let dropsToPlace = 4;
+  
+  while (dropsToPlace > 0) {
+    const rx = Math.floor(Math.random() * GRID_SIZE);
+    const ry = Math.floor(Math.random() * GRID_SIZE);
 
-  // Flower (Goal)
-  grid[0][4] = 'flower';
+    // Only place if the cell is currently empty
+    // This automatically prevents overwriting Start or Flower
+    if (grid[ry][rx] === 'empty') {
+      grid[ry][rx] = 'honey';
+      dropsToPlace--;
+    }
+  }
 
   return {
     grid,
-    totalHoney: honeyPositions.length,
+    totalHoney: 4,
     startPos: { x: startX, y: startY }
   };
 };
